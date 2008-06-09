@@ -10,6 +10,8 @@ WriteMakefile
           'VERSION_FROM' => 'lib/Artemis/Model.pm',
           'PREREQ_PM' => {
                            'Test::More' => 0,
+                           'Test::Fixture::DBIC::Schema' => 0,
+                           'parent' => 0,
                            'Artemis::Schema' => 0,
                            'Artemis::Config' => 0
                          }

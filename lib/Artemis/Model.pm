@@ -3,11 +3,12 @@ package Artemis::Model;
 use warnings;
 use strict;
 
-our $VERSION = '2.010001';
-
 use Artemis::Config;
+use parent 'Exporter';
 
+our $VERSION   = '2.010001';
 our @EXPORT_OK = qw(model);
+
 
 =begin model
 
@@ -25,7 +26,7 @@ development, test).
 
 sub model
 {
-        my ($self, $schema_basename) = @_;
+        my ($schema_basename) = @_;
 
         $schema_basename ||= 'TestrunDB';
 
@@ -45,12 +46,14 @@ sub model
 
 =head1 NAME
 
-Artemis::Model - Get connected Artemis Schema aka. a model!
+Artemis::Model - Get a connected Artemis Schema aka. model!
 
 =head1 SYNOPSIS
 
-    use Artemis::Model qw(model);
-    my $testrun = model('ReportsDB')->schema('Report')->find(12345);
+    use Artemis::Model 'model';
+    my $testrun = model->schema('Testrun')->find(12);  # defaults to "TestrunDB"
+    my $testrun = model('ReportsDB')->schema('Report')->find(7343);
+
 
 =head1 EXPORT
 
