@@ -1,0 +1,21 @@
+---
+name: Artemis-Model
+version: 2.010001
+author:
+  - 'OSRC SysInt Team <osrc-sysint@elbe.amd.com>'
+abstract: Get connected Artemis Schema aka. a model!
+license: restrictive
+requires:
+  Artemis::Config: 0
+  Artemis::Schema: 0
+  perl: 5.010
+build_requires:
+  Test::More: 0
+provides:
+  Artemis::Model:
+    file: lib/Artemis/Model.pm
+    version: 2.010001
+generated_by: Module::Build version 0.280801
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

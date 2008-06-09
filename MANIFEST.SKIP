@@ -1,0 +1,8 @@
+Artemis-Model-*.*.tar.gz
+Artemis-Model-*.*/
+_build
+blib
+^Build$
+MANIFEST.bak
+MANIFEST.old
+Makefile

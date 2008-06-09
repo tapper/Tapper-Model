@@ -1,0 +1,39 @@
+Start web app
+-------------
+
+ * script/artemis_reports_server.pl
+
+
+Start TAP receiver
+------------------
+
+ * script/artemis_reports_receiver.pl
+
+
+Submit report
+-------------
+
+* Manually:
+
+    $ nc -q0 localhost 7357
+      OK 1 foo
+      OK 2 bar
+      OK 3 baz
+      ^D
+
+
+* Simple scripted:
+
+    $ (echo "OK 1 foo" ; echo "OK 2 bar"; echo "OK 3 baz") | nc -q0 localhost 7357
+
+
+* Submit a TAP emitting testrun from a harness:
+
+    $ prove -vl t/artemis_schema_testrundb.t | nc -q0 localhost 7357
+
+
+* Submit a TAP emitting testrun without harness:
+
+    $ perl -Ilib t/artemis_schema_testrundb.t | nc -q0 localhost 7357
+
+
