@@ -1,39 +1,27 @@
-Start web app
--------------
+Artemis
 
- * script/artemis_reports_server.pl
+Automatic Regression Test Environment and Measurement Instrument System
 
+INSTALLATION
 
-Start TAP receiver
-------------------
+To install this module, run the following commands:
 
- * script/artemis_reports_receiver.pl
+	perl Build.PL
+	./Build
+	./Build test
+	./Build install
 
+SUPPORT AND DOCUMENTATION
 
-Submit report
--------------
+After installing, you can find documentation for this module with the
+perldoc command.
 
-* Manually:
-
-    $ nc -q0 localhost 7357
-      OK 1 foo
-      OK 2 bar
-      OK 3 baz
-      ^D
+    perldoc Artemis
 
 
-* Simple scripted:
+COPYRIGHT AND LICENCE
 
-    $ (echo "OK 1 foo" ; echo "OK 2 bar"; echo "OK 3 baz") | nc -q0 localhost 7357
+Copyright (C) 2008 OSRC SysInt Team
 
-
-* Submit a TAP emitting testrun from a harness:
-
-    $ prove -vl t/artemis_schema_testrundb.t | nc -q0 localhost 7357
-
-
-* Submit a TAP emitting testrun without harness:
-
-    $ perl -Ilib t/artemis_schema_testrundb.t | nc -q0 localhost 7357
-
+This program is released under the following license: restrictive
 
