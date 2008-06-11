@@ -12,6 +12,7 @@ my $builder = Module::Build->new
      build_requires => {
                         'Test::More'                  => 0,
                         'Test::Fixture::DBIC::Schema' => 0,
+                        'Artemis::Test'               => 0,
                        },
      requires => {
                   'perl'                        => '5.010',
