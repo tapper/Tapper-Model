@@ -47,45 +47,35 @@
   data:
     id: 7
     shortname: artemis-tools
-    type: subdir
-#    repository_full_name: /subdir/tools/64bit/artemis/tools
-    condition: some yaml here 1
+    precondition: some yaml here 1
 
 - schema: Precondition
   name: perl-5.10
   data:
     id: 8
     shortname: perl-5.10
-    type: package
-#    repository_full_name: /package/redhat/5.2/64bit/perl-5.10
-    condition: some yaml here 2
+    precondition: some yaml here 2
 
 - schema: Precondition
   name: gcc
   data:
     id: 9
     shortname: gcc-4.2
-    type: package
-#    repository_full_name: /package/redhat/5.2/64bit/gcc-4.2
-    condition: some yaml here 3
+    precondition: some yaml here 3
 
 - schema: Precondition
   name: glibc
   data:
     id: 10
     shortname: glibc-2.1
-    type: package
-#    repository_full_name: /package/redhat/5.2/64bit/glibc-2.1
-    condition: some yaml here 4
+    precondition: some yaml here 4
 
 - schema: Precondition
   name: gcc
   data:
     id: 11
     shortname: gcc-4.2
-    type: package
-#    repository_full_name: /package/redhat/5.2/64bit/gcc-4.2
-    condition: some yaml here 5
+    precondition: some yaml here 5
 
 # -------------------- "perfmon" <== "perl", "artemis-tools"
 
