@@ -13,6 +13,7 @@ WriteMakefile
                            'Test::Fixture::DBIC::Schema' => 0,
                            'parent' => 0,
                            'Artemis::Schema' => 0,
+                           'Artemis::Test' => 0,
                            'Artemis::Config' => 0
                          }
         )

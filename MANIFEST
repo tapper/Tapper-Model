@@ -1,4 +1,5 @@
 .gitignore
+Artemis-Model-2.010001.tar
 Build.PL
 Changes
 lib/Artemis/Model.pm
@@ -6,6 +7,7 @@ MANIFEST
 MANIFEST.SKIP
 META.yml
 README
+t/00-artemis-meta.t
 t/00-load.t
 t/artemis_model.t
 t/artemis_schema_reportsdb_test.sqlite
@@ -14,4 +16,3 @@ t/artemis_schema_testsdb_testdb.sqlite
 t/boilerplate.t
 t/fixtures/testrundb/testrun_with_preconditions.yml
 t/Tools.pm
-Makefile.PL
