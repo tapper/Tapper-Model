@@ -40,7 +40,6 @@ sub model
                 print STDERR $@;
                 return undef;
         }
-        say STDERR Artemis::Config->subconfig->{database}{$schema_basename}{dsn};
         return $schema_class->connect(Artemis::Config->subconfig->{database}{$schema_basename}{dsn},
                                       Artemis::Config->subconfig->{database}{$schema_basename}{username},
                                       Artemis::Config->subconfig->{database}{$schema_basename}{password});
