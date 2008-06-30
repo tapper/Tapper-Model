@@ -27,8 +27,11 @@ sub setup_testrundb {
 
         $testrundb_schema = Artemis::Schema::TestrunDB->connect($dsn,
                                                                 Artemis::Config->subconfig->{test}{database}{TestrunDB}{username},
-                                                                Artemis::Config->subconfig->{test}{database}{TestrunDB}{password});
-        #$testrundb_schema->deploy;
+                                                                Artemis::Config->subconfig->{test}{database}{TestrunDB}{password},
+                                                                { ignore_version => 1 }
+                                                               );
+        $testrundb_schema->deploy;
+        $testrundb_schema->upgrade;
 }
 
 sub setup_reportsdb {
@@ -43,8 +46,11 @@ sub setup_reportsdb {
 
         $reportsdb_schema = Artemis::Schema::ReportsDB->connect($dsn,
                                                                 Artemis::Config->subconfig->{test}{database}{ReportsDB}{username},
-                                                                Artemis::Config->subconfig->{test}{database}{ReportsDB}{password});
-        #$reportsdb_schema->deploy;
+                                                                Artemis::Config->subconfig->{test}{database}{ReportsDB}{password},
+                                                                { ignore_version => 1 }
+                                                               );
+        $reportsdb_schema->deploy;
+        $reportsdb_schema->upgrade;
 }
 
 sub import {
