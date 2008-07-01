@@ -21,7 +21,6 @@ my $builder = Module::Build->new
                   'Artemis::Schema'             => 0,
                  },
      add_to_cleanup      => [ 'Artemis-Model-*' ],
-     create_makefile_pl => 'traditional',
     );
 
 $builder->create_build_script();
