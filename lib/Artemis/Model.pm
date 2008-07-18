@@ -8,7 +8,7 @@ use 5.010;
 use Artemis::Config;
 use parent 'Exporter';
 
-our $VERSION   = '2.010003';
+our $VERSION   = '2.010005';
 our @EXPORT_OK = qw(model);
 
 

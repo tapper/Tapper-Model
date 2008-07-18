@@ -18,7 +18,7 @@ my $builder = Module::Build->new
                   'perl'                        => '5.010',
                   'parent'                      => 0,
                   'Artemis::Config'             => '2.010004',
-                  'Artemis::Schema'             => '2.010012',
+                  'Artemis::Schema'             => '2.010016',
                  },
      add_to_cleanup      => [ 'Artemis-Model-*' ],
     );
