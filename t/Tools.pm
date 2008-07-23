@@ -5,15 +5,16 @@ package t::Tools;
 use strict;
 use warnings;
 
-use Artemis::Schema::TestsDB;
 use Artemis::Schema::TestrunDB;
 use Artemis::Schema::ReportsDB;
+use Artemis::Schema::HardwareDB;
 
 use Artemis::Config;
 
 
 my $testrundb_schema;
 my $reportsdb_schema;
+my $hardwaredb_schema;
 
 sub setup_testrundb {
 
@@ -51,6 +52,25 @@ sub setup_reportsdb {
                                                                );
         $reportsdb_schema->deploy;
         $reportsdb_schema->upgrade;
+}
+
+sub setup_hardwaredb {
+
+        # explicitely prefix into {test} subhash of the config file,
+        # to avoid painful mistakes with deploy
+
+        my $dsn = Artemis::Config->subconfig->{test}{database}{HardwareDB}{dsn};
+
+        my ($tmpfname) = $dsn =~ m,dbi:SQLite:dbname=([\w./]+),i;
+        unlink $tmpfname;
+
+        $hardwaredb_schema = Artemis::Schema::HardwareDB->connect($dsn,
+                                                                  Artemis::Config->subconfig->{test}{database}{HardwareDB}{username},
+                                                                  Artemis::Config->subconfig->{test}{database}{HardwareDB}{password},
+                                                                  { ignore_version => 1 }
+                                                                 );
+        $hardwaredb_schema->deploy;
+        #$hardwaredb_schema->upgrade; # not yet versioned
 }
 
 sub import {
