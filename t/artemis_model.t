@@ -5,10 +5,9 @@ use lib '.';
 use strict;
 use warnings;
 
-use Artemis::Model 'model';
-use t::Tools;
-
 use Test::More;
+use Artemis::Model 'model';
+use Artemis::Schema::TestTools;
 use Test::Fixture::DBIC::Schema;
 
 plan tests => 1;
