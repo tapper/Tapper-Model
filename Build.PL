@@ -11,17 +11,16 @@ my $builder = Module::Build->new
      dist_version_from   => 'lib/Artemis/Model.pm',
      build_requires => {
                         'Test::More'                  => 0,
-                        'Test::Fixture::DBIC::Schema' => 0,
-                        'Artemis::Test'               => 0,
+                        'Test::Fixture::DBIC::Schema' => "0.02",
+                        'Artemis::Test'               => "2.010005",
                        },
      requires => {
                   'perl'                        => '5.010',
                   'parent'                      => 0,
-                  'Artemis::Config'             => 0,
-                  'Artemis::Schema'             => 0,
+                  'Artemis::Config'             => '2.010004',
+                  'Artemis::Schema'             => '2.010018',
                  },
      add_to_cleanup      => [ 'Artemis-Model-*' ],
-     create_makefile_pl => 'traditional',
     );
 
 $builder->create_build_script();

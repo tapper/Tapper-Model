@@ -10,8 +10,9 @@ Artemis-Model-*
 cover_db
 MANIFEST.bak
 inc
-t/artemis_schema_testrundb_test.sqlite
 t/artemis_schema_reportsdb_test.sqlite
+t/artemis_schema_testrundb_test.sqlite
+t/artemis_schema_hardwaredb_test.sqlite
 artemis_testrundb_development.sqlite
 artemis_reportsdb_development.sqlite
 MANIFEST
