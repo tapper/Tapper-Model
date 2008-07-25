@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Test::More;
 
-pan tests => 3;
+plan tests => 3;
 
 sub not_in_file_ok {
     my ($filename, %regex) = @_;
