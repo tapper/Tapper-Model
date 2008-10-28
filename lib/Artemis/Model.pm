@@ -10,8 +10,11 @@ use 5.010;
 #   Subroutine uninitialize redefined at /2home/ss5/perl510/lib/site_perl/5.10.0/Class/C3.pm line 88.
 #   Subroutine reinitialize redefined at /2home/ss5/perl510/lib/site_perl/5.10.0/Class/C3.pm line 101.
 # by forcing correct load order.
-use Class::C3;
-use MRO::Compat;
+
+BEGIN {
+        use Class::C3;
+        use MRO::Compat;
+}
 
 use Artemis::Config;
 use parent 'Exporter';
