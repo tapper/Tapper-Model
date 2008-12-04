@@ -11,15 +11,13 @@ use 5.010;
 #   Subroutine reinitialize redefined at /2home/ss5/perl510/lib/site_perl/5.10.0/Class/C3.pm line 101.
 # by forcing correct load order.
 
-BEGIN {
-        use Class::C3;
-        use MRO::Compat;
-}
+use Class::C3;
+use MRO::Compat;
 
 use Artemis::Config;
 use parent 'Exporter';
 
-our $VERSION   = '2.010007';
+our $VERSION   = '2.010008';
 our @EXPORT_OK = qw(model);
 
 
