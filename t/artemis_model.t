@@ -10,8 +10,6 @@ use Artemis::Model 'model';
 use Artemis::Schema::TestTools;
 use Test::Fixture::DBIC::Schema;
 
-BEGIN { $DBD::SQLite::sqlite_version } # fix "used only once" warning
-
 plan tests => 1;
 
 # -----------------------------------------------------------------------------------------------------------------
