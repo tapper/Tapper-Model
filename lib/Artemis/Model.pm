@@ -17,7 +17,7 @@ use MRO::Compat;
 use Artemis::Config;
 use parent 'Exporter';
 
-our $VERSION   = '2.010008';
+our $VERSION   = '2.010009';
 our @EXPORT_OK = qw(model);
 
 
