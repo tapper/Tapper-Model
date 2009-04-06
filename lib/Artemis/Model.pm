@@ -14,6 +14,7 @@ use 5.010;
 use Class::C3;
 use MRO::Compat;
 
+use Memoize;
 use Artemis::Config;
 use parent 'Exporter';
 
@@ -35,6 +36,7 @@ development, test).
 
 =cut
 
+memoize('model');
 sub model
 {
         my ($schema_basename) = @_;
