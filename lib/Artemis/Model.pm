@@ -18,7 +18,7 @@ use Memoize;
 use Artemis::Config;
 use parent 'Exporter';
 
-our $VERSION   = '2.010009';
+our $VERSION   = '2.010010';
 our @EXPORT_OK = qw(model);
 
 
