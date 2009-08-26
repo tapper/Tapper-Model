@@ -18,7 +18,7 @@ use Memoize;
 use Artemis::Config;
 use parent 'Exporter';
 
-our $VERSION   = '2.010011';
+our $VERSION   = '2.010012';
 our @EXPORT_OK = qw(model);
 
 
@@ -56,19 +56,19 @@ sub model
                                       Artemis::Config->subconfig->{database}{$schema_basename}{password});
 }
 
-sub _get_systems_id_for_hostname
+sub get_systems_id_for_hostname
 {
         my ($name) = @_;
         return model('HardwareDB')->resultset('Systems')->search({systemname => $name, active => 1})->first->lid;
 }
 
-sub _get_hostname_for_systems_id
+sub get_hostname_for_systems_id
 {
         my ($lid) = @_;
         return model('HardwareDB')->resultset('Systems')->find($lid)->systemname;
 }
 
-sub _get_user_id_for_login {
+sub get_user_id_for_login {
         my ($login) = @_;
 
         my $user = model('TestrunDB')->resultset('User')->search({ login => $login })->first;
