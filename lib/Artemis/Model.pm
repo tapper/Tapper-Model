@@ -19,7 +19,7 @@ use Artemis::Config;
 use parent 'Exporter';
 
 our $VERSION   = '2.010012';
-our @EXPORT_OK = qw(model);
+our @EXPORT_OK = qw(model get_hardwaredb_overview);
 
 
 =begin model
