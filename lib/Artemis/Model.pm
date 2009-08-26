@@ -76,6 +76,55 @@ sub get_user_id_for_login {
         return $user_id;
 }
 
+=head2 get_hardwaredb_overview
+
+Returns an overview of a given machine revision.
+
+@param int - machine lid
+
+@return success - hash ref
+@return error   - undef
+
+=cut
+
+sub get_hardwaredb_overview
+{
+        my ($lid) = @_;
+        my $revisions = model('HardwareDB')->resultset('Systems')->find($lid)->revisions;
+        return {
+                mem             => $revisions->mem,
+                cpus            => [ map {{ vendor   => $_->vendor,
+                                            family   => $_->family,
+                                            model    => $_->model,
+                                            stepping => $_->stepping,
+                                            revision => $_->revision,
+                                            socket   => $_->socket_type,
+                                            cores    => $_->cores,
+                                            clock    => $_->clock,
+                                            l2cache  => $_->l2cache,
+                                            l3cache  => $_->l3cache,
+                                        }} $revisions->cpus],
+                    mainboard      => [ map {{
+                                          vendor       => $_->vendor,
+                                          model        => $_->model,
+                                          socket_type  => $_->socket_type,
+                                          nbridge      => $_->nbridge,
+                                          sbridge      => $_->sbridge,
+                                          num_cpu_sock => $_->num_cpu_sock,
+                                          num_ram_sock => $_->num_ram_sock,
+                                          bios         => $_->bios,
+                                          features     => $_->features,
+                                  }} $revisions->mainboards ]->[0],       # this is a map to handle empty mainboards correctly
+
+                    network         => [ map {{ vendor   => $_->vendor,
+                                                chipset  => $_->chipset,
+                                                mac      => $_->mac,
+                                                bus_type => $_->bus_type,
+                                                media    => $_->media,
+                                        }} $revisions->networks],
+                   };
+}
+
 =head1 NAME
 
 Artemis::Model - Get a connected Artemis Schema aka. model!
