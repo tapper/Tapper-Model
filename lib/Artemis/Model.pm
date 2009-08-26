@@ -56,6 +56,19 @@ sub model
                                       Artemis::Config->subconfig->{database}{$schema_basename}{password});
 }
 
+sub _get_systems_id_for_hostname
+{
+        my ($name) = @_;
+        return model('HardwareDB')->resultset('Systems')->search({systemname => $name, active => 1})->first->lid;
+}
+
+sub _get_user_id_for_login {
+        my ($login) = @_;
+
+        my $user = model('TestrunDB')->resultset('User')->search({ login => $login })->first;
+        my $user_id = $user ? $user->id : 0;
+        return $user_id;
+}
 
 =head1 NAME
 
