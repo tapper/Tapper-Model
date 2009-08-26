@@ -62,6 +62,12 @@ sub _get_systems_id_for_hostname
         return model('HardwareDB')->resultset('Systems')->search({systemname => $name, active => 1})->first->lid;
 }
 
+sub _get_hostname_for_systems_id
+{
+        my ($lid) = @_;
+        return model('HardwareDB')->resultset('Systems')->find($lid)->systemname;
+}
+
 sub _get_user_id_for_login {
         my ($login) = @_;
 
