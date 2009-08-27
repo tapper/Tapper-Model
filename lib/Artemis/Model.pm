@@ -61,7 +61,9 @@ sub get_systems_id_for_hostname
         my ($name) = @_;
         say STDERR "name: $name";
         my $system = model('HardwareDB')->resultset('Systems')->search({systemname => $name, active => 1});
-        return $system->first->lid;
+        #use Data::Dumper;
+        #say STDERR "\n"x 20, Dumper($system);
+        return $system->count ? $system->first->lid : undef;
 }
 
 sub get_hostname_for_systems_id
@@ -89,10 +91,20 @@ Returns an overview of a given machine revision.
 
 =cut
 
+use Carp;
+
 sub get_hardwaredb_overview
 {
         my ($lid) = @_;
-        my $revisions = model('HardwareDB')->resultset('Systems')->find($lid)->revisions;
+
+        return {} unless defined $lid;
+
+        my $system = model('HardwareDB')->resultset('Systems')->find($lid);
+        return {
+                # error => "machine $lid not found in database"
+               } unless $system;
+
+        my $revisions = $system->revisions;
         return {
                 mem             => $revisions->mem,
                 cpus            => [ map {{ vendor   => $_->vendor,

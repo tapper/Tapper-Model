@@ -22,6 +22,6 @@ construct_fixture( schema  => hardwaredb_schema, fixture => 't/fixtures/hardware
 is( model('TestrunDB')->resultset('Precondition')->count, 5, "version count" );
 
 my $content = get_hardwaredb_overview(12);
-print STDERR Dumper($content);
+#print STDERR Dumper($content);
 my $result = $content ~~ dpath '/network//vendor';
 is ($result->[0], 'RealTek', 'Content from hw report');
