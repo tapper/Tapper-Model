@@ -19,7 +19,7 @@ my $builder = Module::Build->new
                   'parent'                      => 0,
                   'Memoize'                     => 0,
                   'Artemis::Config'             => '2.010004',
-                  'Artemis::Schema'             => '2.010018',
+                  'Artemis::Schema'             => '2.010046',
                  },
      add_to_cleanup      => [ 'Artemis-Model-*' ],
     );
