@@ -59,7 +59,9 @@ sub model
 sub get_systems_id_for_hostname
 {
         my ($name) = @_;
-        return model('HardwareDB')->resultset('Systems')->search({systemname => $name, active => 1})->first->lid;
+        say STDERR "name: $name";
+        my $system = model('HardwareDB')->resultset('Systems')->search({systemname => $name, active => 1});
+        return $system->first->lid;
 }
 
 sub get_hostname_for_systems_id
