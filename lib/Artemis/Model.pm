@@ -106,7 +106,9 @@ sub get_hardwaredb_overview
 
         my $revisions = $system->revisions;
         return {
+                hostname        => $system->systemname,
                 mem             => $revisions->mem,
+
                 cpus            => [ map {{ vendor   => $_->vendor,
                                             family   => $_->family,
                                             model    => $_->model,
@@ -118,7 +120,8 @@ sub get_hardwaredb_overview
                                             l2cache  => $_->l2cache,
                                             l3cache  => $_->l3cache,
                                         }} $revisions->cpus],
-                    mainboard      => [ map {{
+
+                mainboard      => [ map {{
                                           vendor       => $_->vendor,
                                           model        => $_->model,
                                           socket_type  => $_->socket_type,
@@ -130,12 +133,13 @@ sub get_hardwaredb_overview
                                           features     => $_->features,
                                   }} $revisions->mainboards ]->[0],       # this is a map to handle empty mainboards correctly
 
-                    network         => [ map {{ vendor   => $_->vendor,
-                                                chipset  => $_->chipset,
-                                                mac      => $_->mac,
-                                                bus_type => $_->bus_type,
-                                                media    => $_->media,
-                                        }} $revisions->networks],
+                network         => [ map {{
+                                           vendor   => $_->vendor,
+                                           chipset  => $_->chipset,
+                                           mac      => $_->mac,
+                                           bus_type => $_->bus_type,
+                                           media    => $_->media,
+                                   }} $revisions->networks],
                    };
 }
 
