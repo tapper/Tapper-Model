@@ -13,6 +13,7 @@ my $builder = Module::Build->new
                         'Test::More'                  => 0,
                         'Test::Fixture::DBIC::Schema' => "0.02",
                         'Artemis::Test'               => "2.010005",
+		        'Data::DPath'                 => "0.17",
                        },
      requires => {
                   'perl'                        => '5.010',
