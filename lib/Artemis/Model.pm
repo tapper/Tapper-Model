@@ -18,7 +18,7 @@ use Memoize;
 use Artemis::Config;
 use parent 'Exporter';
 
-our $VERSION   = '2.010012';
+our $VERSION   = '2.010013';
 our @EXPORT_OK = qw(model get_hardwaredb_overview);
 
 
