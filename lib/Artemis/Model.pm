@@ -69,6 +69,7 @@ sub get_systems_id_for_hostname
 sub get_hostname_for_systems_id
 {
         my ($lid) = @_;
+        print STDERR "lid = $lid\n";
         return model('HardwareDB')->resultset('Systems')->find($lid)->systemname;
 }
 
