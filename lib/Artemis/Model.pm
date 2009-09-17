@@ -59,24 +59,24 @@ sub model
 sub get_systems_id_for_hostname
 {
         my ($name) = @_;
-        say STDERR "name: $name";
         my $system = model('HardwareDB')->resultset('Systems')->search({systemname => $name, active => 1});
-        #use Data::Dumper;
-        #say STDERR "\n"x 20, Dumper($system);
+        return if not $system;
         return $system->count ? $system->first->lid : undef;
 }
 
 sub get_hostname_for_systems_id
 {
         my ($lid) = @_;
-        print STDERR "lid = $lid\n";
-        return model('HardwareDB')->resultset('Systems')->find($lid)->systemname;
+        my $host  = model('HardwareDB')->resultset('Systems')->find($lid);
+        return if not $host;
+        return $host->systemname;
 }
 
 sub get_user_id_for_login {
         my ($login) = @_;
-
-        my $user = model('TestrunDB')->resultset('User')->search({ login => $login })->first;
+        my $user_search = model('TestrunDB')->resultset('User')->search({ login => $login });
+        return if not $user_search;
+        my $user = $user_search->first;
         my $user_id = $user ? $user->id : 0;
         return $user_id;
 }
