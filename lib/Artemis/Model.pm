@@ -81,6 +81,17 @@ sub get_user_id_for_login {
         return $user_id;
 }
 
+sub free_hosts_with_features
+{
+        my $hosts =  model('TestrunDB')->resultset("Host")->free_hosts;
+        my @hosts_with_features;
+        while (my $host = $hosts->next) {
+                push @hosts_with_features, {host => $host, features => get_hardwaredb_overview(get_systems_id_for_hostname($host->name))};
+        }
+        return \@hosts_with_features;
+}
+
+
 =head2 get_hardwaredb_overview
 
 Returns an overview of a given machine revision.
