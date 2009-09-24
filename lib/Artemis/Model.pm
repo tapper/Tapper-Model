@@ -117,6 +117,7 @@ sub get_hardwaredb_overview
                } unless $system;
 
         my $revisions = $system->revisions;
+        return {} if not $revisions->count;
         return {
                 hostname        => $system->systemname,
                 mem             => $revisions->mem,
