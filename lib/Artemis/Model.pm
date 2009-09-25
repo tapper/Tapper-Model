@@ -19,7 +19,7 @@ use Artemis::Config;
 use parent 'Exporter';
 
 our $VERSION   = '2.010014';
-our @EXPORT_OK = qw(model get_hardwaredb_overview);
+our @EXPORT_OK = qw(model get_hardwaredb_overview get_systems_id_for_hostname);
 
 
 =begin model
@@ -118,10 +118,12 @@ sub get_hardwaredb_overview
 
         my $revisions = $system->revisions;
         return {} if not $revisions->count;
+        my $key_word = $system->key_word;
+        my %key_word = $key_word ? ( key_word => $key_word ) : ();
         return {
                 hostname        => $system->systemname,
                 mem             => $revisions->mem,
-
+                %key_word,
                 cpus            => [ map {{ vendor   => $_->vendor,
                                             family   => $_->family,
                                             model    => $_->model,
