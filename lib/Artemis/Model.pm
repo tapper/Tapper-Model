@@ -46,10 +46,10 @@ sub model
         my $schema_class = "Artemis::Schema::$schema_basename";
 
         # lazy load class
-        eval "use $schema_class";
+        eval "use $schema_class"; ## no critic (ProhibitStringyEval)
         if ($@) {
                 print STDERR $@;
-                return undef;
+                return;
         }
         return $schema_class->connect(Artemis::Config->subconfig->{database}{$schema_basename}{dsn},
                                       Artemis::Config->subconfig->{database}{$schema_basename}{username},
