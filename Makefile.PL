@@ -6,6 +6,7 @@ use inc::Module::Install;
 name     'Artemis-Model';
 all_from 'lib/Artemis/Model.pm';
 author   'OSRC SysInt Team <osrc-sysint@elbe.amd.com>';
+license  'freebsd';
 
 build_requires 'Test::More'                  => 0;
 build_requires 'Test::Perl::Critic'          => 0;
@@ -18,6 +19,5 @@ requires 'parent'                      => 0;
 requires 'Memoize'                     => 0;
 requires 'Artemis::Config'             => '2.010004';
 requires 'Artemis::Schema'             => '2.010066';
- 
 
 WriteAll;
