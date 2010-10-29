@@ -11,7 +11,6 @@ use Test::Fixture::DBIC::Schema;
 
 # -----------------------------------------------------------------------------------------------------------------
 construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/scenario_testruns.yml' );
-construct_fixture( schema  => hardwaredb_schema, fixture => 't/fixtures/hardwaredb/systems.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
 my $tr = model('TestrunDB')->resultset('Testrun')->find(1001);
