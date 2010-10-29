@@ -19,7 +19,7 @@ use Artemis::Config;
 use parent 'Exporter';
 
 our $VERSION   = '2.010018';
-our @EXPORT_OK = qw(model get_hardwaredb_overview get_systems_id_for_hostname);
+our @EXPORT_OK = qw(model get_hardware_overview get_systems_id_for_hostname);
 
 
 =begin model
@@ -56,21 +56,6 @@ sub model
                                       Artemis::Config->subconfig->{database}{$schema_basename}{password});
 }
 
-sub get_systems_id_for_hostname
-{
-        my ($name) = @_;
-        my $system = model('HardwareDB')->resultset('Systems')->search({systemname => $name, active => 1});
-        return if not $system;
-        return $system->count ? $system->first->lid : undef;
-}
-
-sub get_hostname_for_systems_id
-{
-        my ($lid) = @_;
-        my $host  = model('HardwareDB')->resultset('Systems')->find($lid);
-        return if not $host;
-        return $host->systemname;
-}
 
 sub get_user_id_for_login {
         my ($login) = @_;
@@ -86,13 +71,13 @@ sub free_hosts_with_features
         my $hosts =  model('TestrunDB')->resultset("Host")->free_hosts;
         my @hosts_with_features;
         while (my $host = $hosts->next) {
-                push @hosts_with_features, {host => $host, features => get_hardwaredb_overview(get_systems_id_for_hostname($host->name))};
+                push @hosts_with_features, {host => $host, features => get_hardware_overview($host->id)};
         }
         return \@hosts_with_features;
 }
 
 
-=head2 get_hardwaredb_overview
+=head2 get_hardware_overview
 
 Returns an overview of a given machine revision.
 
@@ -105,57 +90,20 @@ Returns an overview of a given machine revision.
 
 use Carp;
 
-sub get_hardwaredb_overview
+sub get_hardware_overview
 {
-        my ($lid) = @_;
+        my ($host_id) = @_;
 
-        return {} unless defined $lid;
+        my $host = model('TestrunDB')->resultset('Host')->find($host_id);
+        return qq(Host with id '$host_id' not found) unless $host;
 
-        my $system = model('HardwareDB')->resultset('Systems')->find($lid);
-        return {
-                # error => "machine $lid not found in database"
-               } unless $system;
+        my %all_features;
 
-        my $revisions = $system->revisions;
-        return {} if not $revisions->count;
-        my $key_word = $system->key_word;
-        my %key_word = $key_word ? ( key_word => $key_word ) : ();
-        return {
-                hostname        => $system->systemname,
-                mem             => $revisions->mem,
-                %key_word,
-                cpus            => [ map {{ vendor   => $_->vendor,
-                                            family   => $_->family,
-                                            model    => $_->model,
-                                            stepping => $_->stepping,
-                                            revision => $_->revision,
-                                            socket   => $_->socket_type,
-                                            cores    => $_->cores,
-                                            clock    => $_->clock,
-                                            l2cache  => $_->l2cache,
-                                            l3cache  => $_->l3cache,
-                                        }} $revisions->cpus],
+        foreach my $feature ($host->features) {
+                $all_features{$feature->entry} = $feature->value;
+        }
+        return \%all_features;
 
-                mainboard      => [ map {{
-                                          vendor       => $_->vendor,
-                                          model        => $_->model,
-                                          socket_type  => $_->socket_type,
-                                          nbridge      => $_->nbridge,
-                                          sbridge      => $_->sbridge,
-                                          num_cpu_sock => $_->num_cpu_sock,
-                                          num_ram_sock => $_->num_ram_sock,
-                                          bios         => $_->bios,
-                                          features     => $_->features,
-                                  }} $revisions->mainboards ]->[0],       # this is a map to handle empty mainboards correctly
-
-                network         => [ map {{
-                                           vendor   => $_->vendor,
-                                           chipset  => $_->chipset,
-                                           mac      => $_->mac,
-                                           bus_type => $_->bus_type,
-                                           media    => $_->media,
-                                   }} $revisions->networks],
-                   };
 }
 
 =head1 NAME
