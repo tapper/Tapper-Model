@@ -76,7 +76,9 @@ sub free_hosts_with_features
         my $hosts =  model('TestrunDB')->resultset("Host")->free_hosts;
         my @hosts_with_features;
         while (my $host = $hosts->next) {
-                push @hosts_with_features, {host => $host, features => get_hardware_overview($host->id)};
+                my $features = get_hardware_overview($host->id);
+                $features->{hostname} = $host->name;
+                push @hosts_with_features, {host => $host, features => $features};
         }
         return \@hosts_with_features;
 }
