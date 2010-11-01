@@ -51,9 +51,14 @@ sub model
                 print STDERR $@;
                 return;
         }
-        return $schema_class->connect(Artemis::Config->subconfig->{database}{$schema_basename}{dsn},
-                                      Artemis::Config->subconfig->{database}{$schema_basename}{username},
-                                      Artemis::Config->subconfig->{database}{$schema_basename}{password});
+        my $model =  $schema_class->connect(Artemis::Config->subconfig->{database}{$schema_basename}{dsn},
+                                            Artemis::Config->subconfig->{database}{$schema_basename}{username},
+                                            Artemis::Config->subconfig->{database}{$schema_basename}{password});
+        eval {
+                # maybe no TestrunSchedulings in DB yet
+                $model->resultset('TestrunScheduling')->first->gen_schema_functions if $schema_basename eq 'TestrunDB';
+        };
+        return $model;
 }
 
 
