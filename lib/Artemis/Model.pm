@@ -18,7 +18,7 @@ use Memoize;
 use Artemis::Config;
 use parent 'Exporter';
 
-our $VERSION   = '2.010018';
+our $VERSION   = '2.010019';
 our @EXPORT_OK = qw(model get_hardware_overview get_systems_id_for_hostname);
 
 
