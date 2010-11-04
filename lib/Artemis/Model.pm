@@ -62,14 +62,34 @@ sub model
 }
 
 
-sub get_user_id_for_login {
+=head2 get_or_create_user
+
+Search a user based on login name. Create a user with this login name if
+not found.
+
+@param string - login name
+
+@return success - id (primary key of user table)
+@return error   - undef
+
+=cut 
+
+sub get_or_create_user {
         my ($login) = @_;
         my $user_search = model('TestrunDB')->resultset('User')->search({ login => $login });
-        return if not $user_search;
-        my $user = $user_search->first;
-        my $user_id = $user ? $user->id : 0;
-        return $user_id;
+        my $user_id;
+        if (not $user_search) {
+                my $user = model('TestrunDB')->resultset('User')->new({ login => $login });
+                $user->insert;
+                return user->id;
+        } else {
+                my $user = $user_search->first;
+                return $user ? $user->id : 0;
+                
+        }
+        return;
 }
+
 
 sub free_hosts_with_features
 {
