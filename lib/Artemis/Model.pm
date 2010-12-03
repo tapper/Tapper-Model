@@ -99,7 +99,7 @@ sub free_hosts_with_features
                 my $features = get_hardware_overview($host->id);
                 $features->{hostname} = $host->name;
                 my $queues = [];
-                $queues = [ map {$_->queue->id } $host->queuehosts->all ];
+#                $queues = [ map {$_->queue->id } $host->queuehosts->all ];
                 push @hosts_with_features, {host => $host, features => $features, queues => $queues};
         }
         return \@hosts_with_features;
