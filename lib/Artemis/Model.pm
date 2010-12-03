@@ -98,7 +98,9 @@ sub free_hosts_with_features
         while (my $host = $hosts->next) {
                 my $features = get_hardware_overview($host->id);
                 $features->{hostname} = $host->name;
-                push @hosts_with_features, {host => $host, features => $features};
+                my $queues = [];
+#                $queues = [ map {$_->queue->id } $host->queuehosts->all ];
+                push @hosts_with_features, {host => $host, features => $features, queues => $queues};
         }
         return \@hosts_with_features;
 }
