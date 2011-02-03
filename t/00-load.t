@@ -3,7 +3,7 @@
 use Test::More tests => 1;
 
 BEGIN {
-	use_ok( 'Artemis::Model' );
+	use_ok( 'Tapper::Model' );
 }
 
-diag( "Testing Artemis::Model $Artemis::Model::VERSION, Perl $], $^X" );
+diag( "Testing Tapper::Model $Tapper::Model::VERSION, Perl $], $^X" );

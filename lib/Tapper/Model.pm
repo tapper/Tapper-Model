@@ -1,4 +1,4 @@
-package Artemis::Model;
+package Tapper::Model;
 
 use warnings;
 use strict;
@@ -15,7 +15,7 @@ use Class::C3;
 use MRO::Compat;
 
 use Memoize;
-use Artemis::Config;
+use Tapper::Config;
 use parent 'Exporter';
 
 our $VERSION   = '2.010020';
@@ -28,7 +28,7 @@ Returns a connected schema, depending on the environment (live,
 development, test).
 
 @param 1. $schema_basename - optional, default is "Tests", meaning the
-          Schema "Artemis::Schema::Tests"
+          Schema "Tapper::Schema::Tests"
 
 @return $schema
 
@@ -43,7 +43,7 @@ sub model
 
         $schema_basename ||= 'TestrunDB';
 
-        my $schema_class = "Artemis::Schema::$schema_basename";
+        my $schema_class = "Tapper::Schema::$schema_basename";
 
         # lazy load class
         eval "use $schema_class"; ## no critic (ProhibitStringyEval)
@@ -51,9 +51,9 @@ sub model
                 print STDERR $@;
                 return;
         }
-        my $model =  $schema_class->connect(Artemis::Config->subconfig->{database}{$schema_basename}{dsn},
-                                            Artemis::Config->subconfig->{database}{$schema_basename}{username},
-                                            Artemis::Config->subconfig->{database}{$schema_basename}{password});
+        my $model =  $schema_class->connect(Tapper::Config->subconfig->{database}{$schema_basename}{dsn},
+                                            Tapper::Config->subconfig->{database}{$schema_basename}{username},
+                                            Tapper::Config->subconfig->{database}{$schema_basename}{password});
         eval {
                 # maybe no TestrunSchedulings in DB yet
                 $model->resultset('TestrunScheduling')->first->gen_schema_functions if $schema_basename eq 'TestrunDB';
@@ -137,11 +137,11 @@ sub get_hardware_overview
 
 =head1 NAME
 
-Artemis::Model - Get a connected Artemis Schema aka. model!
+Tapper::Model - Get a connected Tapper Schema aka. model!
 
 =head1 SYNOPSIS
 
-    use Artemis::Model 'model';
+    use Tapper::Model 'model';
     my $testrun = model->schema('Testrun')->find(12);  # defaults to "TestrunDB"
     my $testrun = model('ReportsDB')->schema('Report')->find(7343);
 
@@ -161,4 +161,4 @@ This program is released under the following license: restrictive
 
 =cut
 
-1; # End of Artemis::Model
+1; # End of Tapper::Model

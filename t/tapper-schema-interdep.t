@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-use Artemis::Model 'model';
-use Artemis::Schema::TestTools;
+use Tapper::Model 'model';
+use Tapper::Schema::TestTools;
 
 use Test::More;
 use Test::Fixture::DBIC::Schema;

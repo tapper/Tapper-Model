@@ -6,8 +6,8 @@ use strict;
 use warnings;
 
 use Test::More;
-use Artemis::Model qw(model get_hardware_overview);
-use Artemis::Schema::TestTools;
+use Tapper::Model qw(model get_hardware_overview);
+use Tapper::Schema::TestTools;
 use Test::Fixture::DBIC::Schema;
 use Data::DPath qw(dpath);
 use Data::Dumper;
