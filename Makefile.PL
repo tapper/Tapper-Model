@@ -14,6 +14,8 @@ build_requires 'Test::Fixture::DBIC::Schema' => "0.02";
 build_requires 'Tapper::Test'               => "2.010005";
 build_requires 'Data::DPath'                 => "0.17";
 
+author_requires 'Module::Install::WriteAll';
+
 requires 'perl'                        => '5.010';
 requires 'parent'                      => 0;
 requires 'Memoize'                     => 0;
