@@ -137,7 +137,7 @@ sub get_hardware_overview
 
 =head1 NAME
 
-Tapper::Model - Get a connected Tapper Schema aka. model!
+Tapper::Model - Tapper - Context sensitive connected DBIC schema
 
 =head1 SYNOPSIS
 
