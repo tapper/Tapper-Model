@@ -78,13 +78,13 @@ sub get_or_create_user {
         my ($login) = @_;
         my $user_search = model('TestrunDB')->resultset('User')->search({ login => $login });
         my $user_id;
-        if (not $user_search) {
+        if (not $user_search->count) {
                 my $user = model('TestrunDB')->resultset('User')->new({ login => $login });
                 $user->insert;
                 return user->id;
         } else {
-                my $user = $user_search->first;
-                return $user ? $user->id : 0;
+                my $user = $user_search->first; # at least one user
+                return $user->id;
                 
         }
         return;
