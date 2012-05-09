@@ -1,4 +1,5 @@
 package Tapper::Model;
+# ABSTRACT: Tapper - Context sensitive connected DBIC schema
 
 use warnings;
 use strict;
@@ -18,11 +19,9 @@ use Memoize;
 use Tapper::Config;
 use parent 'Exporter';
 
-our $VERSION   = '3.000011';
 our @EXPORT_OK = qw(model get_hardware_overview);
 
-
-=begin model
+=head2 model
 
 Returns a connected schema, depending on the environment (live,
 development, test).
@@ -31,8 +30,6 @@ development, test).
           Schema "Tapper::Schema::Tests"
 
 @return $schema
-
-=end model
 
 =cut
 
@@ -60,7 +57,6 @@ sub model
         };
         return $model;
 }
-
 
 =head2 get_or_create_user
 
@@ -135,29 +131,11 @@ sub get_hardware_overview
 
 }
 
-=head1 NAME
-
-Tapper::Model - Tapper - Context sensitive connected DBIC schema
-
 =head1 SYNOPSIS
 
     use Tapper::Model 'model';
-    my $testrun = model->schema('Testrun')->find(12);  # defaults to "TestrunDB"
+    my $testrun = model('TestrunDB')->schema('Testrun')->find(12);
     my $testrun = model('ReportsDB')->schema('Report')->find(7343);
-
-
-=head1 EXPORT
-
-=head2 model
-
-Returns a connected schema.
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
-
 
 =cut
 
