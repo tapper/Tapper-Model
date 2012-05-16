@@ -68,7 +68,7 @@ not found.
 @return success - id (primary key of user table)
 @return error   - undef
 
-=cut 
+=cut
 
 sub get_or_create_user {
         my ($login) = @_;
@@ -81,11 +81,16 @@ sub get_or_create_user {
         } else {
                 my $user = $user_search->first; # at least one user
                 return $user->id;
-                
+
         }
         return;
 }
 
+=head2 free_hosts_with_features
+
+Return list of free hosts with their features and queues.
+
+=cut
 
 sub free_hosts_with_features
 {
