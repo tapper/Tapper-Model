@@ -54,10 +54,6 @@ sub model
         my $model =  $schema_class->connect(Tapper::Config->subconfig->{database}{$schema_basename}{dsn},
                                             Tapper::Config->subconfig->{database}{$schema_basename}{username},
                                             Tapper::Config->subconfig->{database}{$schema_basename}{password});
-        eval {
-                # maybe no TestrunSchedulings in DB yet
-                $model->resultset('TestrunScheduling')->first->gen_schema_functions if $schema_basename eq 'TestrunDB';
-        };
         return $model;
 }
 
