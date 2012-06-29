@@ -87,20 +87,6 @@ sub get_or_create_user {
 }
 
 
-sub free_hosts_with_features
-{
-        my $hosts =  model('TestrunDB')->resultset("Host")->free_hosts;
-        my @hosts_with_features;
-        while (my $host = $hosts->next) {
-                my $features = get_hardware_overview($host->id);
-                $features->{hostname} = $host->name;
-                my $queues = [];
-#                $queues = [ map {$_->queue->id } $host->queuehosts->all ];
-                push @hosts_with_features, {host => $host, features => $features, queues => $queues};
-        }
-        return \@hosts_with_features;
-}
-
 
 =head2 get_hardware_overview
 
