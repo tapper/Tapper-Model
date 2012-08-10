@@ -54,30 +54,29 @@ sub model
         return $model;
 }
 
-=head2 get_or_create_user
+=head2 get_or_create_owner
 
-Search a user based on login name. Create a user with this login name if
+Search a owner based on login name. Create a owner with this login name if
 not found.
 
 @param string - login name
 
-@return success - id (primary key of user table)
+@return success - id (primary key of owner table)
 @return error   - undef
 
 =cut
 
-sub get_or_create_user {
+sub get_or_create_owner {
         my ($login) = @_;
-        my $user_search = model('TestrunDB')->resultset('User')->search({ login => $login });
-        my $user_id;
-        if (not $user_search->count) {
-                my $user = model('TestrunDB')->resultset('User')->new({ login => $login });
-                $user->insert;
-                return $user->id;
+        my $owner_search = model('TestrunDB')->resultset('Owner')->search({ login => $login });
+        my $owner_id;
+        if (not $owner_search->count) {
+                my $owner = model('TestrunDB')->resultset('Owner')->new({ login => $login });
+                $owner->insert;
+                return $owner->id;
         } else {
-                my $user = $user_search->first; # at least one user
-                return $user->id;
-
+                my $owner = $owner_search->first; # at least one owner
+                return $owner->id;
         }
         return;
 }
