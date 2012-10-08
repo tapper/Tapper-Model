@@ -75,7 +75,7 @@ sub get_or_create_owner {
                 $owner->insert;
                 return $owner->id;
         } else {
-                my $owner = $owner_search->first; # at least one owner
+                my $owner = $owner_search->search({}, {rows => 1})->first; # at least one owner
                 return $owner->id;
         }
         return;
