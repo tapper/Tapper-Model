@@ -1,6 +1,13 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        * PostgreSQL support
+        - [FIX] slow first() usage
+        - rename USER into OWNER
+
+        * Misc
+        - Moved free_host_with_features to scheduler
+        - do not generate schema functions
 
 4.0.1     2012-05-16
         - cleanup and bugfixes
