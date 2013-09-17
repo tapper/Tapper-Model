@@ -121,7 +121,7 @@ sub get_hardware_overview
 
     use Tapper::Model 'model';
     my $testrun = model('TestrunDB')->schema('Testrun')->find(12);
-    my $testrun = model('ReportsDB')->schema('Report')->find(7343);
+    my $testrun = model('TestrunDB')->schema('Report')->find(7343);
 
 =cut
 
