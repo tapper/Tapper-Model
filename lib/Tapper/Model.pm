@@ -136,7 +136,7 @@ my $fn_execute_raw_sql = sub {
             my $s_storage_engine             = ( split /::/, ref $or_storage         )[-1];
             my $s_schema                     = ( split /::/, ref $or_storage->schema )[-1];
 
-            if (! $s_storage_engine ~~ @a_supported_storage_engines ) {
+            if ( scalar(grep {$_ eq $s_storage_engine} @a_supported_storage_engines) < 1 ) {
                 die 'storage engine not supported';
             }
 
