@@ -117,7 +117,7 @@ sub get_hardware_overview
 
 =cut
 
-my @a_supported_storage_engines = qw/ mysql sqlite postgresql /;
+my @a_supported_storage_engines = qw/ mysql SQLite Pg /;
 
 my $fn_execute_raw_sql = sub {
 
