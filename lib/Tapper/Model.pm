@@ -36,11 +36,9 @@ development, test).
 memoize('model');
 sub model
 {
-        my ($schema_basename) = @_;
 
-        $schema_basename ||= 'TestrunDB';
-
-        my $schema_class = "Tapper::Schema::$schema_basename";
+        my $schema_basename = 'TestrunDB';
+        my $schema_class    = "Tapper::Schema::$schema_basename";
 
         # lazy load class
         eval "use $schema_class"; ## no critic (ProhibitStringyEval)
@@ -48,10 +46,12 @@ sub model
                 print STDERR $@;
                 return;
         }
-        my $model =  $schema_class->connect(Tapper::Config->subconfig->{database}{$schema_basename}{dsn},
-                                            Tapper::Config->subconfig->{database}{$schema_basename}{username},
-                                            Tapper::Config->subconfig->{database}{$schema_basename}{password});
-        return $model;
+        return $schema_class->connect(
+            Tapper::Config->subconfig->{database}{$schema_basename}{dsn},
+            Tapper::Config->subconfig->{database}{$schema_basename}{username},
+            Tapper::Config->subconfig->{database}{$schema_basename}{password},
+        );
+
 }
 
 =head2 get_or_create_owner
@@ -121,7 +121,7 @@ sub get_hardware_overview
 
     use Tapper::Model 'model';
     my $testrun = model('TestrunDB')->schema('Testrun')->find(12);
-    my $testrun = model('ReportsDB')->schema('Report')->find(7343);
+    my $testrun = model('TestrunDB')->schema('Report')->find(7343);
 
 =cut
 
