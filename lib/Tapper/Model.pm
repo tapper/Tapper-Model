@@ -61,20 +61,11 @@ sub get_or_create_owner {
 
         my ($login) = @_;
 
-        my $owner_id = model('TestrunDB')
+        return model('TestrunDB')
             ->resultset('Owner')
-            ->search({ login => $login }, { rows => 1 })
-            ->first
-            ->get_column('id')
+            ->find_or_create({},{ login => $login })
+            ->id()
         ;
-
-        if (! $owner_id ) {
-                my $owner = model('TestrunDB')->resultset('Owner')->new({ login => $login });
-                   $owner->insert;
-                return $owner->id;
-        }
-
-        return $owner_id;
 
 }
 
