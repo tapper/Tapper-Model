@@ -57,26 +57,25 @@ not found.
 =cut
 
 sub get_or_create_owner {
+
         my ($login) = @_;
-        my $owner_search = model('TestrunDB')->resultset('Owner')->search({ login => $login });
-        my $owner_id;
-        if (not $owner_search->count) {
+
+        my $owner_id = model('TestrunDB')
+            ->resultset('Owner')
+            ->search({ login => $login }, { rows => 1 })
+            ->first
+            ->get_column('id')
+        ;
+
+        if (! $owner_id ) {
                 my $owner = model('TestrunDB')->resultset('Owner')->new({ login => $login });
-                $owner->insert;
-                return $owner->id;
-        } else {
-                my $owner = $owner_search->search({}, {rows => 1})->first; # at least one owner
+                   $owner->insert;
                 return $owner->id;
         }
-        return;
+
+        return $owner_id;
+
 }
-
-=head2 free_hosts_with_features
-
-Return list of free hosts with their features and queues.
-
-=cut
-
 
 =head2 get_hardware_overview
 
@@ -89,21 +88,21 @@ Returns an overview of a given machine revision.
 
 =cut
 
-use Carp;
+sub get_hardware_overview {
 
-sub get_hardware_overview
-{
         my ($host_id) = @_;
 
-        my $host = model('TestrunDB')->resultset('Host')->find($host_id);
-        return qq(Host with id '$host_id' not found) unless $host;
+        my $host = model('TestrunDB')
+                ->resultset('Host')
+                ->search({ id => $host_id }, { prefetch => 'features' })
+                ->first()
+        ;
 
-        my %all_features;
-
-        foreach my $feature ($host->features) {
-                $all_features{$feature->entry} = $feature->value;
+        if (! $host ) {
+                return qq(Host with id '$host_id' not found);
         }
-        return \%all_features;
+
+        return { map { $_->entry => $_->value } $host->features };
 
 }
 
