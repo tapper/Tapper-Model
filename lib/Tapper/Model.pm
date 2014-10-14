@@ -63,7 +63,7 @@ sub get_or_create_owner {
 
         return model('TestrunDB')
             ->resultset('Owner')
-            ->find_or_create({},{ login => $login })
+            ->find_or_create({ login => $login },{ login => $login })
             ->id()
         ;
 
