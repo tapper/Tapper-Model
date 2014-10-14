@@ -1,8 +1,9 @@
 package Tapper::Model;
+
 # ABSTRACT: Tapper - Context sensitive connected DBIC schema
 
-use warnings;
 use strict;
+use warnings;
 
 use 5.010;
 
@@ -94,7 +95,7 @@ sub get_hardware_overview {
 
         my $host = model('TestrunDB')
                 ->resultset('Host')
-                ->search({ id => $host_id }, { prefetch => 'features' })
+                ->search({ 'me.id' => $host_id }, { prefetch => 'features' })
                 ->first()
         ;
 
