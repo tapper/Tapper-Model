@@ -39,9 +39,7 @@ sub model {
     }
     else {
         return $or_testrundb_schema = Tapper::Schema::TestrunDB->connect(
-            @{Tapper::Config->subconfig->{database}{TestrunDB}}{qw/ dsn username password /},{
-                mysql_auto_reconnect => 1,
-            },
+            @{Tapper::Config->subconfig->{database}{TestrunDB}}{qw/ dsn username password /},{},
         );
     }
 }
