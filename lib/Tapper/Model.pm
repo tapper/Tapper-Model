@@ -13,13 +13,16 @@ use 5.010;
 #   Subroutine reinitialize redefined at /2home/ss5/perl510/lib/site_perl/5.10.0/Class/C3.pm line 101.
 # by forcing correct load order.
 
+use English;
 use Class::C3;
 use MRO::Compat;
 use Tapper::Config;
+use DBIx::Connector;
 use parent 'Exporter';
 use Tapper::Schema::TestrunDB;
 
-my  $or_testrundb_schema;
+my %h_schemas;
+my $or_connection;
 our @EXPORT_OK = qw(model get_hardware_overview);
 
 =head2 model
@@ -35,14 +38,18 @@ development, test).
 =cut
 
 sub model {
-    if ( $or_testrundb_schema ) {
-        return $or_testrundb_schema;
-    }
-    else {
-        return $or_testrundb_schema = Tapper::Schema::TestrunDB->connect(
-            @{Tapper::Config->subconfig->{database}{TestrunDB}}{qw/ dsn username password /},{},
-        );
-    }
+
+    # get or create a new connection object
+    $or_connection //= DBIx::Connector->new(
+        @{Tapper::Config->subconfig->{database}{TestrunDB}}{qw/ dsn username password /},
+        {},
+    );
+
+    # get or create a new schema object and return
+    return $h_schemas{$PID} // Tapper::Schema::TestrunDB->connect(sub {
+        return $or_connection->dbh;
+    });
+
 }
 
 =head2 get_or_create_owner
