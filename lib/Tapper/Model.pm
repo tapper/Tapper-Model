@@ -46,7 +46,7 @@ sub model {
     );
 
     # get or create a new schema object and return
-    return $h_schemas{$PID} // Tapper::Schema::TestrunDB->connect(sub {
+    return $h_schemas{$PID} //= Tapper::Schema::TestrunDB->connect(sub {
         return $or_connection->dbh;
     });
 
