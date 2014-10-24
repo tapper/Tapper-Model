@@ -17,12 +17,10 @@ use English;
 use Class::C3;
 use MRO::Compat;
 use Tapper::Config;
-use DBIx::Connector;
 use parent 'Exporter';
 use Tapper::Schema::TestrunDB;
 
-my %h_schemas;
-my $or_connection;
+my $or_testrundb_schema;
 our @EXPORT_OK = qw(model get_hardware_overview);
 
 =head2 model
@@ -38,18 +36,9 @@ development, test).
 =cut
 
 sub model {
-
-    # get or create a new connection object
-    $or_connection //= DBIx::Connector->new(
-        @{Tapper::Config->subconfig->{database}{TestrunDB}}{qw/ dsn username password /},
-        {},
+    return $or_testrundb_schema //= Tapper::Schema::TestrunDB->connect(
+        @{Tapper::Config->subconfig->{database}{TestrunDB}}{qw/ dsn username password /},{},
     );
-
-    # get or create a new schema object and return
-    return $h_schemas{$PID} //= Tapper::Schema::TestrunDB->connect(sub {
-        return $or_connection->dbh;
-    });
-
 }
 
 =head2 get_or_create_owner
