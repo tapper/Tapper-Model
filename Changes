@@ -1,6 +1,12 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - merged ReportsDB/TestrunDB
+        - no memoization anymore
+        - refactoring
+        - bugfixes
+        - performance tweaks
+        - better fork connection awareness
 
 4.1.2     2012-11-20
         - dzil pluginbundle TAPPER
