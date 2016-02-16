@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - synchronize with opensource Tapper::Schema
 
 5.0.0     2016-02-15
         - merged ReportsDB/TestrunDB
